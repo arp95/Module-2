@@ -23,9 +23,10 @@ def index_to_position(index, strides):
     Returns:
         int : position in storage
     """
-
-    # TODO: Implement for Task 2.1.
-    raise NotImplementedError('Need to implement for Task 2.1')
+    pos = 0
+    for position in range(0, len(index)):
+        pos += index[position]*strides[position]
+    return pos
 
 
 def count(position, shape, out_index):
@@ -44,8 +45,11 @@ def count(position, shape, out_index):
       None : Fills in `out_index`.
 
     """
-    # TODO: Implement for Task 2.1.
-    raise NotImplementedError('Need to implement for Task 2.1')
+    position += 1
+    out_index = []
+    for pos in range(len(shape)-1, -1):
+        out_index.append()
+    
 
 
 def broadcast_index(big_index, big_shape, shape, out_index):
