@@ -45,11 +45,14 @@ def count(position, shape, out_index):
       None : Fills in `out_index`.
 
     """
-    position += 1
-    out_index = []
+    print(out_index)
+    position = int(position)
     for pos in range(len(shape)-1, -1):
-        out_index.append()
-    
+        out_index[pos] = position%shape[pos]
+        position /= shape[pos]
+        position = int(position)
+    print(out_index)
+    #out_index = array(out_index)
 
 
 def broadcast_index(big_index, big_shape, shape, out_index):
@@ -168,6 +171,14 @@ class TensorData:
         for i in range(self.size):
             count(i, lshape, out_index)
             yield tuple(out_index)
+            print()
+            print()
+            print(i)
+            print(lshape)
+            print(out_index)
+            print(self.size)
+            print()
+            print()
 
     def sample(self):
         return tuple((random.randint(0, s - 1) for s in self.shape))
@@ -194,9 +205,14 @@ class TensorData:
         assert list(sorted(order)) == list(
             range(len(self.shape))
         ), f"Must give a position to each dimension. Shape: {self.shape} Order: {order}"
-
-        # TODO: Implement for Task 2.1.
-        raise NotImplementedError('Need to implement for Task 2.1')
+        shape = self._shape
+        pos = 0
+        for index in range(0, len(order)):
+            shape[pos] = self._shape[order[index]]
+            pos += 1
+        new_tensor_data = TensorData(self._storage, shape)
+        return new_tensor_data
+        
 
     def to_string(self):
         s = ""
